@@ -1,18 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
-import { Body, Post, Req, Res } from '@nestjs/common/decorators';
+import { Controller, Get, ValidationPipe } from '@nestjs/common';
+import { Body, Delete, Post, Put, UsePipes } from '@nestjs/common/decorators';
 import { Param, Query } from '@nestjs/common/decorators/http/route-params.decorator';
-import { Request, Response } from 'express';
 import { CreateUserDto } from '../DTOS/CreateUser.dtos';
 //creating two routes name users and post
 
 @Controller('users')
 export class UsersController {
     //General get withiut route
+    //Defining info for push
     @Get()
     getUsers(){
        return[
        {username:'Ricky' ,
-       Gmail:'@com'}];
+       email:'@com'}];
     }
 
     @Get('post/comment')
@@ -26,9 +26,10 @@ export class UsersController {
 
     //route for push request
     @Post('create')
+    @UsePipes(new ValidationPipe)
     creatUser(@Body()userdata:CreateUserDto){
         console.log(userdata);
-        return{};
+        return 'Created';
 
     }
 
@@ -44,5 +45,18 @@ export class UsersController {
     getUser(@Query('sortBy')sortBy: String){
       console.log(sortBy);  
     }
+
+    //Update
+    @Put(':id')
+    updateUser(@Param('id') id:string){
+        return {'Updated': id};
+  }
+
+  //Delete
+  @Delete(':id')
+  deleteUser(@Param('id') id:string) {
+    return 'Deleted';
+
+  }
 
 }
