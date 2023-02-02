@@ -45,6 +45,17 @@ export class UsersController {
     getUser(@Query('sortBy')sortBy: String){
       console.log(sortBy);  
     }
+    
+    @Put(':id')
+  updateUser(@Param('id') id, @Body() updateData) {
+    // implement your update logic here
+    return { id, updateData };
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  deleteUser(@Param('id') id) {
+    // implement your delete logic here
 
     //Update
     @Put(':id')
