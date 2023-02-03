@@ -8,3 +8,7 @@ export class CreateUserDto{
     @IsNotEmpty() 
     email : string;
 }
+
+export class UpdateId{
+    id : string;
+}
