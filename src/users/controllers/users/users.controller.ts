@@ -1,7 +1,9 @@
 import { Controller, Get, ParseBoolPipe, ParseIntPipe, ValidationPipe } from '@nestjs/common';
 import { Body, Delete, Post, Put, UsePipes } from '@nestjs/common/decorators';
 import { Param, Query } from '@nestjs/common/decorators/http/route-params.decorator';
-import { CreateUserDto} from '../DTOS/CreateUser.dtos';
+import { ParseFilePipe, ParseFloatPipe } from '@nestjs/common/pipes';
+import { CreateUserDto, LoginUserDto } from '../DTOS/CreateUser.dtos';
+
 
 //creating two routes name users and post
 
@@ -21,12 +23,12 @@ export class UsersController {
        email:'@com'}];
     }
 
-    @Get('post/comment')
+    @Get('post')
     getUserPost(){
         return [
         {ID1:'Designer', 
         ID2:'Developer',
-        comment: ['Alright'],},
+        comment: 'Alright',},
     ];
     }
 
@@ -39,25 +41,58 @@ export class UsersController {
 
     }
 
-    //route for get
-    @Get(':id')
-    getUserById(@Param('id',ParseIntPipe) id : number){
-         console.log(id);
-         return{id};
-    }
 
-    
     //Update
     @Put(':id')
     updateUser(@Param('id',ParseIntPipe) id:number){
         return {'Updated': id};
   }
 
+
   //Delete
   @Delete(':id')
   deleteUser(@Param('id',ParseIntPipe) id:number) {
     return 'Deleted';
+  }
+
+  @Get('view')
+    getUserId(){
+        return [
+        {ID1:'001', 
+        ID2:'030',
+        comment: 'Alright',},
+    ];
+    }
+
+    //route for push request
+    @Post('login')
+    @UsePipes(new ValidationPipe)
+    LogUser(@Body()userdata:LoginUserDto){
+        console.log(userdata);
+        return 'Successful';
+
+    }
+
+    //route for get
+    @Get(':name')
+    getUserByname(@Param('id') name : string){
+         console.log(name);
+         return{name};
+    }
+
+    
+    //Update
+    @Put(':response')
+    updateresp(@Param('id',ParseBoolPipe) response:boolean){
+        return {'Updated': response};
+  }
+
+  //Delete
+  @Delete(':percent')
+  deletepercent(@Param('id',ParseFloatPipe) percent:number) {
+    return 'Deleted percent';
 
   }
 
 }
+
