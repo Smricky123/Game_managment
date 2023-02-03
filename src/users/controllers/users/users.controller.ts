@@ -2,7 +2,8 @@ import { Controller, Get, ParseBoolPipe, ParseIntPipe, ValidationPipe } from '@n
 import { Body, Delete, Post, Put, UsePipes } from '@nestjs/common/decorators';
 import { Param, Query } from '@nestjs/common/decorators/http/route-params.decorator';
 import { ParseFilePipe, ParseFloatPipe } from '@nestjs/common/pipes';
-import { CreateUserDto, LoginUserDto } from '../DTOS/CreateUser.dtos';
+import { CreateUserDto } from '../DTOS/CreateUser.dtos';
+import { LoginUserDto } from '../DTOS/LoginUser.dtos';
 
 
 //creating two routes name users and post
